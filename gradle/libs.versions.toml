@@ -1,0 +1,60 @@
+[versions]
+agp = "8.8.0"
+android-compileSdk = "34"
+android-minSdk = "24"
+android-targetSdk = "34"
+androidx-activityCompose = "1.9.3"
+androidx-appcompat = "1.7.0"
+androidx-constraintlayout = "2.2.0"
+androidx-core-ktx = "1.15.0"
+androidx-espresso-core = "3.6.1"
+androidx-lifecycle = "2.8.4"
+androidx-material = "1.12.0"
+androidx-test-junit = "1.2.1"
+coilCompose = "3.1.0"
+compose-multiplatform = "1.7.0"
+javetV8Android = "4.1.1"
+junit = "4.13.2"
+kermit = "2.0.4"
+kmpViewmodel = "0.8.0"
+kotlin = "2.1.0"
+kotlinx-coroutines = "1.10.1"
+ktorClientCio = "2.3.0"
+ktorClientCore = "3.0.3"
+workRuntimeKtx = "2.10.0"
+documentfile = "1.0.1"
+identityJvm = "202411.1"
+
+[libraries]
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-ktor2 = { module = "io.coil-kt.coil3:coil-network-ktor2", version.ref = "coilCompose" }
+javet = { module = "com.caoccao.javet:javet", version.ref = "javetV8Android" }
+javet-native-linux-x86_x4 = { module = "com.caoccao.javet:javet-v8-linux-x86_64", version.ref = "javetV8Android" }
+javet-native-macos-arm64 = { module = "com.caoccao.javet:javet-v8-macos-arm64", version.ref = "javetV8Android" }
+javet-native-macos-x86_x4 = { module = "com.caoccao.javet:javet-v8-macos-x86_64", version.ref = "javetV8Android" }
+javet-native-windows-x86_x4 = { module = "com.caoccao.javet:javet-v8-windows-x86_64", version.ref = "javetV8Android" }
+javet-v8-android = { module = "com.caoccao.javet:javet-v8-android", version.ref = "javetV8Android" }
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }
+androidx-documentfile = { group = "androidx.documentfile", name = "documentfile", version.ref = "documentfile" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientCore" }
+ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktorClientCore" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientCore" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientCore" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientCore" }
+identity-jvm = { group = "com.android.identity", name = "identity-jvm", version.ref = "identityJvm" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
