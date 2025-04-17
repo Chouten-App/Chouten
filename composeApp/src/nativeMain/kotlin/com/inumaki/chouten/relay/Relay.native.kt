@@ -1,15 +1,11 @@
 package com.inumaki.chouten.relay
 
-import com.inumaki.chouten.Models.DiscoverData
 import com.inumaki.chouten.Models.DiscoverSection
 import com.inumaki.chouten.helpers.PlatformLogger
 import com.inumaki.chouten.helpers.convertMapToDiscoverSections
-import com.inumaki.chouten.models.Label
-import com.inumaki.chouten.models.Titles
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -18,13 +14,10 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import ktor.client
 import platform.Foundation.NSDocumentDirectory
-import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
-import platform.Foundation.NSLocalizedDescriptionKey
 import platform.Foundation.NSString
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
-import platform.Foundation.setValue
 import platform.Foundation.stringWithContentsOfURL
 import platform.JavaScriptCore.JSContext
 import platform.JavaScriptCore.JSValue
@@ -33,7 +26,6 @@ import platform.JavaScriptCore.setObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 
 suspend fun JSContext.callAsyncFunction(key: String): JSValue = suspendCancellableCoroutine { continuation ->

@@ -1,4 +1,4 @@
-package com.inumaki.chouten.features.components
+package com.inumaki.chouten.features.Discover.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

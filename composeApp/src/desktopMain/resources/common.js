@@ -2,7 +2,7 @@
 // to allow modules to run smoothly.
 
 // sendRequest(url: String, method: String, headers: {String: String}?, body: String?)
-async function request(url, method, headers) {
+async function request(url, method, headers = {}, body = null) {
     return JSON.parse(RelayBridge.request(url, method, headers))
 }
 

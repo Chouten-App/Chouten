@@ -1,4 +1,4 @@
-package com.inumaki.chouten.features.components
+package com.inumaki.chouten.features.Discover.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,10 +28,11 @@ import androidx.compose.ui.unit.sp
 import com.inumaki.chouten.Models.DiscoverData
 import com.inumaki.chouten.components.NetworkImage
 import com.inumaki.chouten.theme.ChoutenTheme
+import com.inumaki.chouten.theme.LocalDeviceInfo
 
 @Composable
 fun List(title: String, list: List<DiscoverData>) {
-    val startOffset = 20.dp // if (LocalDeviceInfo.current.isTablet) 130.dp else 20.dp
+    val startOffset = if (LocalDeviceInfo.current.isTablet) 130.dp else 20.dp
 
     Column(
         modifier = Modifier.padding(top = 12.dp)
@@ -81,7 +82,7 @@ fun List(title: String, list: List<DiscoverData>) {
                         if (item.indicator != null ) {
                             Box(
                                 modifier = Modifier
-                                    .padding(6.dp)
+                                    .padding(8.dp)
                             ) {
                                 Text(
                                     item.indicator ?: "",

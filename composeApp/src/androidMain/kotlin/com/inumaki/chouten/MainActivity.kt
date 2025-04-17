@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import com.inumaki.chouten.relay.Relay
+import com.inumaki.chouten.wasm3.WasmRuntime
 
 class MainActivity : ComponentActivity() {
     private val pickFolderLauncher =
@@ -49,6 +50,11 @@ class MainActivity : ComponentActivity() {
         }
 
         Relay.setContext(applicationContext)
+
+        val runtime = WasmRuntime(applicationContext)
+        val module = runtime.loadModule(ByteArray(0))
+
+        println("WASM: ${module.callFunction("test")}")
 
         setContent {
             App()

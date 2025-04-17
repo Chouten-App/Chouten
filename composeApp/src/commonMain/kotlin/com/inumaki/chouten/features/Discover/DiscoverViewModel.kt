@@ -1,8 +1,7 @@
-package com.inumaki.chouten.features
+package com.inumaki.chouten.features.Discover
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.inumaki.chouten.Models.DiscoverSection
 import com.inumaki.chouten.Models.LoadingState
@@ -19,7 +18,7 @@ import kotlinx.coroutines.withContext
 
 class DiscoverViewModel: ViewModel() {
     var state = mutableStateOf(
-        LoadingState.INIT
+        LoadingState.LOADING
     )
 
     private val _sections = MutableStateFlow<List<DiscoverSection>?>(null)
@@ -36,10 +35,13 @@ class DiscoverViewModel: ViewModel() {
             state.value = LoadingState.LOADING
             try {
                 val result = withContext(Dispatchers.IO) {
-                    Relay.discover() // Runs in a background thread
+                    Relay.discover()
                 }
-                println("SECTIONS: $result")
                 _sections.value = result
+                if (result.isEmpty()) {
+                    state.value = LoadingState.EMPTY
+                    return@launch
+                }
                 state.value = LoadingState.SUCCESS
             } catch (e: Exception) {
                 e.printStackTrace()

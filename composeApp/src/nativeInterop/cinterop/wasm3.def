@@ -1,0 +1,10 @@
+headers = wasm3.h
+package = wasm3
+
+# Use absolute paths to include and linker directories
+compilerOpts = -I${projectDir}/build/wasm3/include
+linkerOpts = -L${projectDir}/build/wasm3 -lwasm3
+
+# Link against the static library
+staticLibraries = libwasm3.a
+libraryPaths = build/wasm3

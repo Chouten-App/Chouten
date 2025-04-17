@@ -1,5 +1,6 @@
 package com.inumaki.chouten.relay
 
+import com.caoccao.javet.exceptions.JavetException
 import com.caoccao.javet.interception.logging.JavetStandardConsoleInterceptor
 import com.caoccao.javet.interop.V8Host
 import com.caoccao.javet.interop.V8Runtime
@@ -10,7 +11,6 @@ import com.inumaki.chouten.Models.DiscoverData
 import com.inumaki.chouten.Models.DiscoverSection
 import com.inumaki.chouten.Models.Label
 import com.inumaki.chouten.Models.Titles
-import java.io.BufferedReader
 import java.io.File
 import java.io.InputStream
 import java.util.Locale
@@ -20,7 +20,7 @@ actual object Relay {
 
     private lateinit var v8Runtime: V8Runtime
 
-    var commonJs: String = ""
+    private var commonJs: String = ""
 
     actual fun init() {
         v8Runtime = V8Host.getV8Instance().createV8Runtime()
@@ -50,20 +50,43 @@ actual object Relay {
     }
 
     actual suspend fun discover(): List<DiscoverSection> {
-        val promise = v8Runtime.getExecutor("instance.discover().then(res => res)").execute<V8ValuePromise>()
+        return try {
+            val promise = v8Runtime
+                .getExecutor("instance.discover()")
+                .execute<V8ValuePromise>()
 
-        v8Runtime.await() // Make sure this doesn't block the UI
+            if (promise == null) {
+                println("Error: Promise is null")
+                return emptyList()
+            }
 
-        if (promise == null || promise.isRejected) {
-            println(v8Runtime.hasException())
-            println("Error: Promise was rejected")
-            return emptyList()
+            // Await JS promise resolution
+            v8Runtime.await()
+
+            if (promise.isRejected) {
+                val reasonValue = promise.getString("reason")
+                val message = reasonValue?.toString() ?: "Unknown JS rejection reason"
+                println("Promise was rejected: $message")
+                return emptyList()
+            }
+
+            val returnObject = promise.getResult<V8ValueArray>()
+            if (returnObject == null) {
+                println("Error: Result is null or not an array")
+                return emptyList()
+            }
+
+            return v8ArrayToDiscoverArray(returnObject)
+
+        } catch (e: JavetException) {
+            println("Caught JavetException: ${e.message}")
+            emptyList()
+        } catch (e: Exception) {
+            println("Caught unexpected exception: ${e.message}")
+            emptyList()
         }
-
-        val returnObject = promise.getResult<V8ValueArray>() ?: return emptyList()
-
-        return v8ArrayToDiscoverArray(returnObject)
     }
+
 
     private fun loadCommonJs(): String {
         val inputStream: InputStream? = this::class.java.getResourceAsStream("/common.js")

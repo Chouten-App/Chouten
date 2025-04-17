@@ -1,0 +1,3 @@
+[submodule "shared/ktmpwasm"]
+	path = shared/ktmpwasm
+	url = https://github.com/Yeicor/ktmpwasm.git
