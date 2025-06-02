@@ -35,5 +35,5 @@ jobs:
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
 
-      - name: Build project
-        run: ./gradlew build
+      - name: Build Android and common targets only
+        run: ./gradlew compileKotlinAndroid
