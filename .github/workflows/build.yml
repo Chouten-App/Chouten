@@ -36,4 +36,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build Android and common targets only
-        run: ./gradlew compileKotlinAndroid
+        run: ./gradlew compileReleaseKotlinAndroid
