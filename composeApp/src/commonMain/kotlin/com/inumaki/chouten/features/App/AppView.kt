@@ -17,8 +17,8 @@ import androidx.navigation.compose.rememberNavController
 import com.inumaki.chouten.features.App.components.TabView
 import com.inumaki.chouten.features.Discover.DiscoverView
 import com.inumaki.chouten.features.Discover.DiscoverViewModel
-import com.inumaki.chouten.features.Discover.HomeView
-import com.inumaki.chouten.features.Discover.HomeViewModel
+import com.inumaki.chouten.features.Home.HomeView
+import com.inumaki.chouten.features.Home.HomeViewModel
 import com.inumaki.chouten.theme.ChoutenTheme
 import com.inumaki.chouten.theme.LocalDeviceInfo
 
