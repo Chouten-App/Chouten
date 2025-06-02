@@ -188,13 +188,14 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-
+/*
         externalNativeBuild {
             cmake {
                 cppFlags += "-I${android.ndkDirectory}/sysroot/usr/include"
             }
         }
     }
+    */
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -216,12 +217,14 @@ android {
         // 3..
         assets.srcDirs("src/commonMain/assets")
     }
+    /*
     externalNativeBuild {
         cmake {
             path = file("src/androidMain/cpp/CMakeLists.txt")
             version = "3.22.1"
         }
     }
+    */
 }
 
 dependencies {

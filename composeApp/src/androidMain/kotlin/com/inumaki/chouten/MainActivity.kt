@@ -51,11 +51,12 @@ class MainActivity : ComponentActivity() {
 
         Relay.setContext(applicationContext)
 
+/*
         val runtime = WasmRuntime(applicationContext)
         val module = runtime.loadModule(ByteArray(0))
 
         println("WASM: ${module.callFunction("test")}")
-
+*/
         setContent {
             App()
         }
