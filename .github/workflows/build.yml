@@ -37,3 +37,12 @@ jobs:
 
       - name: Build Android and common targets only
         run: ./gradlew compileReleaseKotlinAndroid
+        
+      - name: Assemble Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: composeApp/build/outputs/apk/debug/composeApp-debug.apk
