@@ -9,8 +9,21 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeHotReload)
     kotlin("plugin.serialization") version "2.1.20"
-    // id("maven-publish")
+}
+
+tasks.withType<Jar>().configureEach {
+    dependsOn(":RelayWASM:buildWasmDll")
+}
+
+tasks.withType<JavaExec>().configureEach {
+    dependsOn(":RelayWASM:buildWasmDll")
+}
+
+tasks.withType<JavaExec>().configureEach {
+    val libDir = System.getProperty("user.home") + "/RelayWASMLibs"
+    systemProperty("java.library.path", libDir)
 }
 
 kotlin {
@@ -21,6 +34,7 @@ kotlin {
         }
     }
 
+    /*
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,7 +44,7 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
         }
-    }
+    }*/
 
     jvm("desktop")
 
@@ -47,6 +61,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation("org.jetbrains.compose.material:material-icons-core:1.7.3")
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -64,6 +79,10 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.font.awesome)
             implementation(libs.kotlinx.serialization.json)
+            implementation("dev.chrisbanes.haze:haze:1.6.10")
+            implementation("dev.chrisbanes.haze:haze-materials:1.6.10")
+
+            implementation(project(":RelayWASM"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -77,107 +96,13 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.ktor.io.jvm)
         }
+        /*
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
-        }
-    }
-
-    /*
-    targets.withType<KotlinNativeTarget> {
-        compilations.getByName("main") {
-            cinterops {
-                val wasm3 by creating {
-                    definitionFile.set(project.file("src/nativeInterop/cinterop/wasm3.def"))
-                    packageName("wasm3")
-                    compilerOpts("-I${projectDir}/build/wasm3/include")
-                    includeDirs.allHeaders(project.file("src/nativeInterop/cinterop/wasm3/source"))
-                }
-            }
-        }
-
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
-    }
-
-     */
-}
-
-/*
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = "com.inumaki"
-            artifactId = "kmp-wasm3"
-            version = "1.0.0"
-
-            from(components["kotlin"])
-        }
-    }
-    repositories {
-        maven {
-            url = uri("../repo")  // Local repository
-        }
+        }*/
     }
 }
 
-tasks.withType<KotlinNativeLink> {
-    dependsOn("buildWasm3")  // Ensure wasm3 is built before linking
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.CInteropProcess>().configureEach {
-    if (name.contains("wasm3", ignoreCase = true)) {
-        println("Running cinterop for wasm3 with the following paths:")
-        println("Header: ${project.file("src/nativeInterop/cinterop/wasm3/wasm3.h")}")
-        println("Def file: ${project.file("src/nativeInterop/cinterop/wasm3.def")}")
-        println("Linker options: -L${projectDir}/build/wasm3")
-        dependsOn("buildWasm3")
-    }
-}
-
-// Task to build wasm3 (static library)
-tasks.register("buildWasm3") {
-    group = "build"
-    description = "Builds the wasm3 static library"
-
-    val wasm3SourceDir = file("src/nativeInterop/cinterop/wasm3/source")
-    val buildDir = file("build/wasm3")
-
-    outputs.dir(buildDir)
-
-    doLast {
-        buildDir.mkdirs()
-
-        exec {
-            commandLine(
-                "clang",  // or gcc, depending on your system
-                "-c",
-                "$wasm3SourceDir/wasm3.c",
-                "-I$wasm3SourceDir",
-                "-o",
-                "$buildDir/wasm3.o"
-            )
-        }
-
-        exec {
-            commandLine(
-                "ar",
-                "rcs",
-                "$buildDir/libwasm3.a",
-                "$buildDir/wasm3.o"
-            )
-        }
-
-        // Optionally copy headers to a standard include location (or just leave them in source)
-        copy {
-            from("$wasm3SourceDir/wasm3.h")
-            into("$buildDir/include")
-        }
-    }
-}
-*/
 android {
     namespace = "com.inumaki.chouten"
     compileSdk = 35 // libs.versions.android.compileSdk.get().toInt()

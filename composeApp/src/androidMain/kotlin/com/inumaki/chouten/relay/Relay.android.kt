@@ -13,11 +13,11 @@ import com.caoccao.javet.values.V8Value
 import com.caoccao.javet.values.reference.V8ValueArray
 import com.caoccao.javet.values.reference.V8ValueObject
 import com.caoccao.javet.values.reference.V8ValuePromise
-import com.inumaki.chouten.Models.DiscoverData
-import com.inumaki.chouten.Models.DiscoverSection
+import com.inumaki.relaywasm.models.DiscoverData
+import com.inumaki.relaywasm.models.DiscoverSection
 import com.inumaki.chouten.helpers.convertMapToDiscoverSections
-import com.inumaki.chouten.Models.Label
-import com.inumaki.chouten.Models.Titles
+import com.inumaki.relaywasm.models.Label
+import com.inumaki.relaywasm.models.Titles
 import java.io.BufferedReader
 
 actual object Relay {
@@ -155,7 +155,7 @@ actual object Relay {
                 println(e.message)
             }
 
-            sections.add(DiscoverSection(title = title, type = type, list = list))
+            // sections.add(DiscoverSection(title = title, section_type = type, list = list))
         }
 
         println("SECTIONS CONVERTED: $sections")

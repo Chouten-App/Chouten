@@ -1,5 +1,5 @@
 [versions]
-agp = "8.8.0"
+agp = "8.11.1"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
@@ -12,14 +12,15 @@ androidx-lifecycle = "2.8.4"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 coilCompose = "3.1.0"
-compose-multiplatform = "1.7.0"
+compose-multiplatform = "1.8.2"
+composeHotReload = "1.0.0-beta04"
 fontAwesome = "1.1.1"
 javetV8Android = "4.1.1"
 junit = "4.13.2"
 kamelImageDefault = "1.0.3"
 kermit = "2.0.4"
 kmpViewmodel = "0.8.0"
-kotlin = "2.1.0"
+kotlin = "2.2.0"
 kotlinx-coroutines = "1.10.1"
 kotlinxCinteropRuntime = "1.9.22"
 kotlinxSerializationJson = "1.8.0"
@@ -74,3 +75,4 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}

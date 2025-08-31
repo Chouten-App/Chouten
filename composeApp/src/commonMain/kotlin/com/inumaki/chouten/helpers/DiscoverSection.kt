@@ -1,9 +1,9 @@
 package com.inumaki.chouten.helpers
 
-import com.inumaki.chouten.Models.DiscoverData
-import com.inumaki.chouten.Models.DiscoverSection
-import com.inumaki.chouten.Models.Label
-import com.inumaki.chouten.Models.Titles
+import com.inumaki.relaywasm.models.DiscoverData
+import com.inumaki.relaywasm.models.DiscoverSection
+import com.inumaki.relaywasm.models.Label
+import com.inumaki.relaywasm.models.Titles
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -11,7 +11,17 @@ import kotlin.uuid.Uuid
 @OptIn(ExperimentalUuidApi::class)
 fun convertMapToDiscoverSections(jsItem: Map<String, Any>): DiscoverSection {
     val title = jsItem["title"] as String
-    val type = jsItem["type"] as Double
+    val typeDouble = jsItem["type"] as Double
+
+    var type = "UNKNOWN"
+    when (typeDouble) {
+        0.0 -> {
+            type = "CAROUSEL"
+        }
+        1.0 -> {
+            type = "LIST"
+        }
+    }
 
     val items: MutableList<DiscoverData> = mutableListOf()
 
@@ -51,7 +61,7 @@ fun convertMapToDiscoverSections(jsItem: Map<String, Any>): DiscoverSection {
 
     return DiscoverSection(
         title,
-        type = type.toInt(),
+        section_type = type,
         list = items
     )
 }

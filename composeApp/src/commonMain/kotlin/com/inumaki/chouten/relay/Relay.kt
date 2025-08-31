@@ -1,6 +1,6 @@
 package com.inumaki.chouten.relay
 
-import com.inumaki.chouten.Models.DiscoverSection
+import com.inumaki.relaywasm.models.DiscoverSection
 
 expect object Relay {
     val version: String

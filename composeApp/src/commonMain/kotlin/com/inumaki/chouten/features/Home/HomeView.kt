@@ -19,6 +19,8 @@ import com.inumaki.chouten.features.Discover.DiscoverView
 import com.inumaki.chouten.features.Discover.DiscoverViewModel
 import com.inumaki.chouten.theme.ChoutenTheme
 import com.inumaki.chouten.theme.LocalDeviceInfo
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
 
 @Composable
 fun HomeView(
@@ -27,7 +29,8 @@ fun HomeView(
     val init = viewModel.init.collectAsState()
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

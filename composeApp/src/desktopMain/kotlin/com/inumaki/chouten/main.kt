@@ -21,8 +21,12 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Surface
 import coil3.ImageLoader
 import com.inumaki.chouten.relay.Relay
+import com.inumaki.relaywasm.WasmRuntime
 import java.awt.Desktop
 import java.awt.Frame
 import java.lang.System.setProperty
@@ -39,6 +43,7 @@ fun main() {
 
     application {
         var isSubmenuShowing by remember { mutableStateOf(false) }
+        var useCustomWindow by remember { mutableStateOf(false) }
         var showAboutDialog by remember { mutableStateOf(false) }
 
         val state = rememberWindowState(
@@ -61,8 +66,12 @@ fun main() {
         Window(
             onCloseRequest = ::exitApplication,
             title = "Chouten",
-            state = state
+            state = state,
+            transparent = useCustomWindow,
+            // Transparent window must be undecorated
+            undecorated = useCustomWindow,
         ) {
+            /*
             MenuBar {
                 Menu("File", mnemonic = 'F') {
                     Item("Copy", onClick = { })
@@ -84,12 +93,23 @@ fun main() {
                     }
                 }
             }
+            */
             CompositionLocalProvider(
                 LocalWindowDimensions provides WindowDimensions(widthDp, heightDp)
             ) {
-                App()
+                if (useCustomWindow) {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = Color.Transparent,
+                        // Window with rounded corners
+                        shape = RoundedCornerShape(20.dp)
+                    ) {
+                        App(WasmRuntime())
+                    }
+                } else {
+                    App(WasmRuntime())
+                }
             }
-
         }
 
         if (showAboutDialog) {

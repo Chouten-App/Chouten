@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.inumaki.chouten.Models.DiscoverData
+import com.inumaki.relaywasm.models.DiscoverData
 import com.inumaki.chouten.components.NetworkImage
 import com.inumaki.chouten.theme.ChoutenTheme
 import com.inumaki.chouten.theme.LocalDeviceInfo

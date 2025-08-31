@@ -1,6 +1,6 @@
 package com.inumaki.chouten.relay
 
-import com.inumaki.chouten.Models.DiscoverSection
+import com.inumaki.relaywasm.models.DiscoverSection
 import com.inumaki.chouten.helpers.PlatformLogger
 import com.inumaki.chouten.helpers.convertMapToDiscoverSections
 import io.ktor.client.request.get

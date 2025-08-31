@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import com.inumaki.chouten.Models.DiscoverSection
+import com.inumaki.relaywasm.models.DiscoverSection
 import com.inumaki.chouten.components.NetworkImage
 import com.inumaki.chouten.theme.LocalDeviceInfo
 

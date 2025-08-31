@@ -1,5 +1,6 @@
 package com.inumaki.chouten.features.Discover
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,23 +16,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.inumaki.chouten.Models.DiscoverSection
 import com.inumaki.chouten.features.Discover.components.Carousel
 import com.inumaki.chouten.features.Discover.components.List
 import com.inumaki.chouten.Models.LoadingState
 import com.inumaki.chouten.components.TitleCard
 import com.inumaki.chouten.features.Discover.components.LoadingCarousel
 import com.inumaki.chouten.features.Discover.components.LoadingList
+import com.inumaki.chouten.theme.ChoutenTheme
+
+import com.inumaki.relaywasm.models.DiscoverSection
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
 
 @Composable
 fun DiscoverView(
-    viewModel: DiscoverViewModel = viewModel { DiscoverViewModel() }
+    viewModel: DiscoverViewModel,
+    hazeState: HazeState
 ) {
     val sections by viewModel.sections.collectAsState()
 
     when (viewModel.state.value) {
         LoadingState.LOADING -> LoadingDiscoverView()
-        LoadingState.SUCCESS -> SuccessDiscoverView(sections!!)
+        LoadingState.SUCCESS -> SuccessDiscoverView(sections!!, hazeState)
         LoadingState.EMPTY -> {
             Column(
                 modifier = Modifier
@@ -77,23 +83,23 @@ fun LoadingDiscoverView() {
 }
 
 @Composable
-fun SuccessDiscoverView(sections: List<DiscoverSection>) {
+fun SuccessDiscoverView(sections: List<DiscoverSection>, hazeState: HazeState) {
     val listState = rememberLazyListState()
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(ChoutenTheme.colors.background),
         state = listState,
         verticalArrangement = Arrangement.Top,
         contentPadding = PaddingValues(bottom = 120.dp)
     ) {
         items(items = sections) { section ->
-            when (section.type) {
-                0 -> {
+            when (section.section_type) {
+                "CAROUSEL" -> {
                     Carousel(data = section)
                 }
-
-                1 -> {
+                "LIST" -> {
                     List(
                         title = section.title,
                         list = section.list

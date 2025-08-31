@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import com.inumaki.chouten.relay.Relay
-import com.inumaki.chouten.wasm3.WasmRuntime
+import com.inumaki.relaywasm.WasmRuntime
 
 class MainActivity : ComponentActivity() {
     private val pickFolderLauncher =
@@ -43,28 +43,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        /*
         val savedUri = getSavedDirectory()
         if (savedUri == null) {
             // Launch folder picker
             pickFolderLauncher.launch(null)
         }
+        */
 
-        Relay.setContext(applicationContext)
 
-/*
-        val runtime = WasmRuntime(applicationContext)
-        val module = runtime.loadModule(ByteArray(0))
+        val wasmRuntime = WasmRuntime(applicationContext)
 
-        println("WASM: ${module.callFunction("test")}")
-*/
         setContent {
-            App()
+            App(
+                wasmRuntime = wasmRuntime
+            )
         }
     }
-}
-
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
 }
